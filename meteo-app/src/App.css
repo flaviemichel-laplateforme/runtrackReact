@@ -1,0 +1,158 @@
+/* src/App.css */
+
+/* Configuration de base de l'app pour prendre tout l'écran */
+.App {
+    min-height: 100vh;
+    width: 100%;
+    color: white;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    transition: background 0.5s ease-in-out;
+    /* Transition douce entre les météos */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+/* Le wrapper permet de garder le contenu lisible peu importe le fond */
+.content-wrapper {
+    background: rgba(0, 0, 0, 0.4);
+    /* Fond noir semi-transparent */
+    backdrop-filter: blur(10px);
+    /* Effet de flou "verre dépoli" (Glassmorphism) */
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    height: fit-content;
+}
+
+.content-wrapper h1 {
+    font-size: 2.5rem;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+.content-wrapper h2 {
+    font-size: 1.8rem;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.content-wrapper p {
+    font-size: 1rem;
+    margin: 8px 0;
+}
+
+.content-wrapper img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+}
+
+/* --- THEMES METEO --- */
+
+/* Par défaut */
+.App.default {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Ciel dégagé (Clear) - Bleu et jaune soleil */
+.App.Clear {
+    background: linear-gradient(to top, #2980b9, #6dd5fa, #ffffff);
+    /* Exemple avec image (décommentez si vous avez une image) : 
+  background-image: url('https://source.unsplash.com/1600x900/?sunny,sky'); */
+}
+
+/* Nuageux (Clouds) - Gris bleuté */
+.App.Clouds {
+    background: linear-gradient(to top, #bdc3c7, #2c3e50);
+}
+
+/* Pluie (Rain / Drizzle) - Gris sombre et bleu */
+.App.Rain,
+.App.Drizzle {
+    background: linear-gradient(to bottom, #203a43, #2c5364);
+}
+
+/* Orage (Thunderstorm) - Violet sombre et noir */
+.App.Thunderstorm {
+    background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+}
+
+/* Neige (Snow) - Blanc et bleu très pâle */
+.App.Snow {
+    background: linear-gradient(to bottom, #83a4d4, #b6fbff);
+    color: #333;
+    /* On change le texte en noir pour la neige car le fond est clair */
+}
+
+.App.Snow .content-wrapper {
+    background: rgba(255, 255, 255, 0.3);
+    /* Verre plus clair pour la neige */
+    color: #333;
+}
+
+/* Brouillard (Mist / Fog / Haze) */
+.App.Mist,
+.App.Fog,
+.App.Haze {
+    background: linear-gradient(to top, #3e5151, #decba4);
+}
+
+/* --- RESPONSIVE DESIGN --- */
+
+/* Tablette (768px et moins) */
+@media screen and (max-width: 768px) {
+    .App {
+        padding-top: 30px;
+    }
+
+    .content-wrapper {
+        padding: 25px 20px;
+        width: 95%;
+    }
+
+    .content-wrapper h1 {
+        font-size: 2rem;
+    }
+
+    .content-wrapper h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Mobile (480px et moins) */
+@media screen and (max-width: 480px) {
+    .App {
+        padding-top: 20px;
+    }
+
+    .content-wrapper {
+        padding: 20px 15px;
+        width: 95%;
+        border-radius: 15px;
+    }
+
+    .content-wrapper h1 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    .content-wrapper h2 {
+        font-size: 1.3rem;
+    }
+
+    .content-wrapper p {
+        font-size: 0.95rem;
+    }
+
+    .content-wrapper button {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+    }
+}

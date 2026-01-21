@@ -44,3 +44,15 @@
 .history-btn:active {
     transform: translateY(0);
 }
+
+/* Responsive */
+@media screen and (max-width: 480px) {
+    .history-btn {
+        font-size: 0.85rem;
+        padding: 5px 12px;
+    }
+
+    .history-label {
+        font-size: 0.85rem;
+    }
+}

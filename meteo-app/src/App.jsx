@@ -11,11 +11,10 @@ function App() {
   const [city, setCity] = useState('Paris');
   const [favorites, setFavorites] = useState([]);
   const [history, setHistory] = useState([]);
-  //Charger l'historique au démarrage
+  // / 1. Nouvel état pour stocker la condition météo (ex: 'Clear', 'Rain')
+  const [weatherCondition, setWeatherCondition] = useState('default');
 
-
-
-  // Charger les favoris au démarrage
+  // Charger les favoris au démarrage et //Charger l'historique au démarrage
   useEffect(() => {
     const savedFavorites = localStorage.getItem('favorites');
     const savedHistory = localStorage.getItem('history');
@@ -57,25 +56,28 @@ function App() {
   };
 
   return (
-    <div className='App'>
-      <h1>Météo App</h1>
+    <div className={`App ${weatherCondition}`}>
+      <div className='content-wrapper'>
+        <h1>Météo App</h1>
 
-      <SearchBar onSearch={handleSearch} />
+        <SearchBar onSearch={handleSearch} />
 
-      <History history={history} onSelectCity={handleSearch} />
+        <History history={history} onSelectCity={handleSearch} />
 
-      <Weather
-        city={city}
-        onAddFavorite={addFavorites}
-      />
+        <Weather
+          city={city}
+          onAddFavorite={addFavorites}
+          onWeatherChange={setWeatherCondition}
+        />
 
 
-      <Favorites
-        favorites={favorites}
-        onSelectCity={handleSearch}
-        onRemoveFavorite={removeFavorites}
-      />
+        <Favorites
+          favorites={favorites}
+          onSelectCity={handleSearch}
+          onRemoveFavorite={removeFavorites}
+        />
 
+      </div>
     </div>
   )
 }

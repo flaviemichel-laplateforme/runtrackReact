@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import './Weather.css';
 
-const Weather = ({ city, onAddFavorite }) => {
+const Weather = ({ city, onAddFavorite, onWeatherChange }) => {
 
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -11,6 +12,7 @@ const Weather = ({ city, onAddFavorite }) => {
 
     // 2. useEffect pour l'appel API (Job 02 - Étape 5)
     useEffect(() => {
+        if (!city) return;
         const fetchWeather = async () => {
 
             setLoading(true);
@@ -28,6 +30,10 @@ const Weather = ({ city, onAddFavorite }) => {
                 const data = await response.json();
                 setWeatherData(data);
 
+                if (data.weather && data.weather.length > 0) {
+                    onWeatherChange(data.weather[0].main);
+                }
+
             } catch (err) {
                 console.error(err);
                 setError(err.message);
@@ -39,7 +45,7 @@ const Weather = ({ city, onAddFavorite }) => {
         };
 
         fetchWeather();
-    }, [city]);
+    }, [city, onWeatherChange]);
 
     // 3. Affichage (Job 02 - Étape 6 & 7) [cite: 206]
     if (loading) return <p>Chargement en cours...</p>;
@@ -50,21 +56,23 @@ const Weather = ({ city, onAddFavorite }) => {
     const iconUrl = `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`;
 
     return (
-        <div>
+        <div className="weather-container">
             <h2>Météo à {weatherData.name}</h2>
             <img src={iconUrl} alt={weatherData.weather[0].description} />
 
             {/* Affichage des données demandées */}
-            <p>Température : {Math.round(weatherData.main.temp)}°C</p>
-            <p>Description : {weatherData.weather[0].description}</p>
-            <p>Humidité : {weatherData.main.humidity}%</p>
-            <p>Vent : {weatherData.wind.speed} m/s</p>
+            <div className="weather-info">
+                <p>🌡️ Température : {Math.round(weatherData.main.temp)}°C</p>
+                <p>💧 Humidité : {weatherData.main.humidity}%</p>
+                <p>☁️ {weatherData.weather[0].description}</p>
+                <p>💨 Vent : {weatherData.wind.speed} m/s</p>
+            </div>
 
             <button
                 onClick={() => onAddFavorite(weatherData.name)}
-                style={{ marginTop: '15px', padding: '10px', backgroundColor: '#4CAF50', color: 'white' }}
+                className="add-favorite-btn"
             >
-                Ajouter aux favoris
+                ⭐ Ajouter aux favoris
             </button>
         </div >
     );

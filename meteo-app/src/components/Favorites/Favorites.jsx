@@ -1,5 +1,5 @@
 import React from "react";
-
+import './Favorites.css';
 const Favorites = ({ favorites, onSelectCity, onRemoveFavorite }) => {
 
     if (favorites.length === 0) {

@@ -1,0 +1,46 @@
+.history-container {
+    margin: 15px 0;
+    text-align: center;
+    /* Centre le texte et les boutons */
+}
+
+.history-label {
+    color: #888;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.history-list {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    /* Permet aux boutons de passer à la ligne si besoin */
+}
+
+.history-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #333;
+    transition: all 0.2s ease;
+    /* Animation fluide */
+}
+
+/* Effet au survol de la souris */
+.history-btn:hover {
+    background-color: #e0e0e0;
+    border-color: #bbb;
+    transform: translateY(-1px);
+    /* Petit effet de soulèvement */
+}
+
+/* Effet au clic */
+.history-btn:active {
+    transform: translateY(0);
+}

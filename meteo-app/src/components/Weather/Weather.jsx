@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const Weather = ({ city }) => {
+const Weather = ({ city, onAddFavorite }) => {
 
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -59,7 +59,14 @@ const Weather = ({ city }) => {
             <p>Description : {weatherData.weather[0].description}</p>
             <p>Humidité : {weatherData.main.humidity}%</p>
             <p>Vent : {weatherData.wind.speed} m/s</p>
-        </div>
+
+            <button
+                onClick={() => onAddFavorite(weatherData.name)}
+                style={{ marginTop: '15px', padding: '10px', backgroundColor: '#4CAF50', color: 'white' }}
+            >
+                Ajouter aux favoris
+            </button>
+        </div >
     );
 };
 

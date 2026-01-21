@@ -4,18 +4,26 @@ import './App.css';
 import Weather from './components/Weather/Weather';
 import SearchBar from './components/SearchBar/SearchBar';
 import Favorites from './components/Favorites/Favorites';
+import History from './components/History/History';
 
 function App() {
   // CORRECTION 1 : "favorites" en minuscule pour ne pas confondre avec le composant "Favorites"
   const [city, setCity] = useState('Paris');
   const [favorites, setFavorites] = useState([]);
+  const [history, setHistory] = useState([]);
+  //Charger l'historique au démarrage
+
+
 
   // Charger les favoris au démarrage
   useEffect(() => {
     const savedFavorites = localStorage.getItem('favorites');
-    if (savedFavorites) {
+    const savedHistory = localStorage.getItem('history');
+    if (savedFavorites)
       setFavorites(JSON.parse(savedFavorites));
-    }
+    if (savedHistory)
+      setHistory(JSON.parse(savedHistory));
+
   }, []);
 
   // Fonction pour ajouter un favori
@@ -36,6 +44,16 @@ function App() {
 
   const handleSearch = (newCity) => {
     setCity(newCity);
+    addHistory(newCity);
+  };
+
+  const addHistory = (newCity) => {
+    let newHistory = [newCity, ...history.filter(c => c !== newCity)];
+    if (newHistory.length > 5) {
+      newHistory = newHistory.slice(0, 5);
+      setHistory(newHistory);
+      localStorage.setItem('history', JSON.stringify(newHistory));
+    };
   };
 
   return (

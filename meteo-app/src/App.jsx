@@ -51,9 +51,9 @@ function App() {
     let newHistory = [newCity, ...history.filter(c => c !== newCity)];
     if (newHistory.length > 5) {
       newHistory = newHistory.slice(0, 5);
-      setHistory(newHistory);
-      localStorage.setItem('history', JSON.stringify(newHistory));
-    };
+    }
+    setHistory(newHistory);
+    localStorage.setItem('history', JSON.stringify(newHistory));
   };
 
   return (
@@ -62,6 +62,7 @@ function App() {
 
       <SearchBar onSearch={handleSearch} />
 
+      <History history={history} onSelectCity={handleSearch} />
 
       <Weather
         city={city}

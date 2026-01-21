@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const Weather = () => {
+const Weather = ({ city }) => {
 
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -12,8 +12,12 @@ const Weather = () => {
     // 2. useEffect pour l'appel API (Job 02 - Étape 5)
     useEffect(() => {
         const fetchWeather = async () => {
+
+            setLoading(true);
+            setError(null);
+
             try {
-                const url = `https://api.openweathermap.org/data/2.5/weather?q=Paris&appid=${API_KEY}&units=metric&lang=fr`;
+                const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=fr`;
 
                 const response = await fetch(url);
 
@@ -23,16 +27,19 @@ const Weather = () => {
 
                 const data = await response.json();
                 setWeatherData(data);
+
             } catch (err) {
                 console.error(err);
                 setError(err.message);
+                setWeatherData(null);
+
             } finally {
                 setLoading(false);
             }
         };
 
         fetchWeather();
-    }, []);
+    }, [city]);
 
     // 3. Affichage (Job 02 - Étape 6 & 7) [cite: 206]
     if (loading) return <p>Chargement en cours...</p>;

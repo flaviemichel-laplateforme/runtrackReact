@@ -6,10 +6,22 @@ import SearchBar from './components/SearchBar/SearchBar';
 
 function App() {
   console.log("Ma clé API :", import.meta.env.VITE_WEATHER_API_KEY)
+  const [city, setCity] = useState('Paris');
+
+  const handleSearch = (newCity) => {
+    setCity(newCity);
+  };
+
+
   return (
     <div className='App'>
+
       <h1>Météo App</h1>
-      <Weather />
+
+      <SearchBar onSearch={handleSearch} />
+
+      <Weather city={city} />
+
     </div>
   )
 

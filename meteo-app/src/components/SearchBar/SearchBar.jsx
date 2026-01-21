@@ -6,7 +6,7 @@ const SearchBar = ({ onSearch }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (inputValue.trim !== '') {
+        if (inputValue.trim() !== '') {
             onSearch(inputValue);
             setInputValue('');
         }

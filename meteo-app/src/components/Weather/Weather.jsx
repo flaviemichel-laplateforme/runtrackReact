@@ -7,9 +7,6 @@ const Weather = ({ city, onAddFavorite, onWeatherChange }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Récupération de la clé API (avec Vite)
-    const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
-
     // 2. useEffect pour l'appel API (Job 02 - Étape 5)
     useEffect(() => {
         if (!city) return;
@@ -19,15 +16,13 @@ const Weather = ({ city, onAddFavorite, onWeatherChange }) => {
             setError(null);
 
             try {
-                const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=fr`;
-
-                const response = await fetch(url);
+                const response = await fetch(`/api/weather?city=${encodeURIComponent(city)}`);
+                const data = await response.json();
 
                 if (!response.ok) {
-                    throw new Error("Erreur réseau ou ville introuvable");
+                    throw new Error(data.message || "Erreur réseau ou ville introuvable");
                 }
 
-                const data = await response.json();
                 setWeatherData(data);
 
                 if (data.weather && data.weather.length > 0) {

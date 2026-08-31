@@ -16,13 +16,28 @@ function App() {
 
   // Charger les favoris au démarrage et //Charger l'historique au démarrage
   useEffect(() => {
+    const isStringArray = (value) => Array.isArray(value) && value.every((item) => typeof item === 'string');
+
     const savedFavorites = localStorage.getItem('favorites');
     const savedHistory = localStorage.getItem('history');
-    if (savedFavorites)
-      setFavorites(JSON.parse(savedFavorites));
-    if (savedHistory)
-      setHistory(JSON.parse(savedHistory));
 
+    if (savedFavorites) {
+      const parsedFavorites = JSON.parse(savedFavorites);
+      if (isStringArray(parsedFavorites)) {
+        setFavorites(parsedFavorites);
+      } else {
+        localStorage.removeItem('favorites');
+      }
+    }
+
+    if (savedHistory) {
+      const parsedHistory = JSON.parse(savedHistory);
+      if (isStringArray(parsedHistory)) {
+        setHistory(parsedHistory);
+      } else {
+        localStorage.removeItem('history');
+      }
+    }
   }, []);
 
   // Fonction pour ajouter un favori
